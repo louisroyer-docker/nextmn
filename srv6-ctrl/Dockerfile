@@ -5,7 +5,7 @@
 
 FROM golang:1.21 AS builder
 ARG COMMIT=v0.0.2
-RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl${COMMIT}
+RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl@${COMMIT}
 
 
 FROM louisroyer/base-irit:latest
