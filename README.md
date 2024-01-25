@@ -91,8 +91,8 @@ environment:
     - prefix: "fd00:51D5:0000:1:1::/80"
       behavior: "End"
       provider: "Linux"
-  LINUX-HEADEND-SET-SOURCE-ADDRESS: fd00:51D5:0000::
-  IPV4-HEADEND-PREFIX: 10.0.200.3/32
+  LINUX_HEADEND_SET_SOURCE_ADDRESS: fd00:51D5:0000::
+  IPV4_HEADEND_PREFIX: 10.0.200.3/32
 ```
 
 #### Container deployment
