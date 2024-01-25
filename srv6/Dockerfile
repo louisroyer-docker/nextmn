@@ -1,0 +1,38 @@
+# Copyright 2024 Louis Royer. All rights reserved.
+# Use of this source code is governed by a MIT-style license that can be
+# found in the LICENSE file.
+# SPDX-License-Identifier: MIT
+
+FROM golang:1.21 AS builder
+ARG COMMIT=v0.0.7
+RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6${COMMIT} \
+      && ln -s /go/pkg/mod/github.com/nextmn/srv6@${COMMIT} /configuration
+
+
+FROM louisroyer/base-irit:latest
+
+LABEL maintainer="Louis Royer <louis.royer@irit.fr>" \
+      org.opencontainers.image.authors="Louis Royer <louis.royer@irit.fr>" \
+      org.opencontainers.image.source="https://github.com/louisroyer-docker/nextmn"
+
+# Used to disable caching of next steps, if not build since 1 day,
+# allowing to search and apply security upgrades
+ARG BUILD_DATE=""
+
+RUN apt-get update -q && DEBIAN_FRONTEND=non-interactive apt-get install -qy --no-install-recommends --no-install-suggests \
+    iproute2 iptables \
+    && apt-get upgrade -qy \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /go/bin/srv6 /usr/local/bin/srv6
+COPY --from=builder /configuration/etc/iproute2/rt_tables.d/nextmn.conf /etc/iproute2/rt_tables.d/nextmn.conf
+COPY --from=builder /configuration/etc/iproute2/rt_protos.d/nextmn.conf /etc/iproute2/rt_protos.d/nextmn.conf
+COPY ./*.sh /usr/local/bin/
+COPY ./template-srv6.yaml /usr/local/share/nextmn/
+ENV TEMPLATE_SCRIPT="template-script.sh" \
+    TEMPLATE_SCRIPT_ARGS="" \
+    CONFIG_FILE="/etc/nextmn/srv6-ctrl.yaml" \
+    CONFIG_TEMPLATE="/usr/local/share/nextmn/srv6-ctrl.yaml" \
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["--help"]

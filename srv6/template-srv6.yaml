@@ -1,0 +1,9 @@
+debug: %DEBUG
+hooks: %HOOKS
+
+linux-headend-set-source-address: %LINUX_HEADEND_SET_SOURCE_ADDRESS
+ipv4-headend-prefix: %IPV4_HEADEND_PREFIX
+headends: %HEADENDS
+
+locator: %LOCATOR
+endpoints: %ENDPOINTS
