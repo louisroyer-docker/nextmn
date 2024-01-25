@@ -27,6 +27,7 @@ environment:
 Environment variables for templating:
 ```yaml
 environment:
+  N4: "203.0.113.2"
 ```
 
 #### Routing
@@ -53,7 +54,45 @@ environment:
 Environment variables for templating:
 ```yaml
 environment:
-  N4: "203.0.113.2"
+  DEBUG: "false"
+  HOOKS: |-
+    pre-init-hook: pre-init-hook.sh
+    post-init-hook: post-init-hook.sh
+    pre-exit-hook: pre-exit-hook.sh
+    post-exit-hook: post-exit-hook.sh
+  LOCATOR: "fd00:51D5:0000:1::/64"
+  HEADENDS: |-
+    - name: "gtp4 to sr"
+      to: "10.0.200.3/32"
+      provider: "NextMN"
+      behavior: "H.M.GTP4.D"
+      policy:
+        - match:
+            teid: 0x0001
+          bsid:
+            bsid-prefix: "fd00:51D5:000:2::/80"
+            segments-list:
+              - "fd00:51D5:0000:3::"
+              - "fd00:51D5:0000:4::"
+      source-address-prefix: "fd00:51D5:000:1:9999::/80"
+    - name: "linux test"
+      to: "10.0.300.0/24"
+      provider: "Linux"
+      behavior: "H.Encaps"
+      policy:
+        - bsid:
+            segments-list:
+              - "fd00:51D5:0000:2::"
+              - "fd00:51D5:0000:3::"
+  ENDPOINTS: |-
+    - prefix: "fd00:51D5:0000:1:11::/80"
+      behavior: "End.DX4"
+      provider: "Linux"
+    - prefix: "fd00:51D5:0000:1:1::/80"
+      behavior: "End"
+      provider: "Linux"
+  LINUX-HEADEND-SET-SOURCE-ADDRESS: fd00:51D5:0000::
+  IPV4-HEADEND-PREFIX: 10.0.200.3/32
 ```
 
 #### Container deployment

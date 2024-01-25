@@ -32,7 +32,7 @@ COPY ./template-srv6.yaml /usr/local/share/nextmn/
 ENV TEMPLATE_SCRIPT="template-script.sh" \
     TEMPLATE_SCRIPT_ARGS="" \
     CONFIG_FILE="/etc/nextmn/srv6-ctrl.yaml" \
-    CONFIG_TEMPLATE="/usr/local/share/nextmn/srv6-ctrl.yaml" \
+    CONFIG_TEMPLATE="/usr/local/share/nextmn/srv6-ctrl.yaml"
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["--help"]
