@@ -27,7 +27,7 @@ environment:
 Environment variables for templating:
 ```yaml
 environment:
-  N4: "203.0.113.2"
+  N6: "203.0.113.2"
 ```
 
 #### Routing
