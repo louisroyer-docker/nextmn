@@ -45,10 +45,10 @@ for ENDPOINT in ${ENDPOINTS}; do
 done
 
 if [ -n "$LINUX_HEADEND_SET_SOURCE_ADDRESS" ]; then
-	LINUX_HEADEND_SET_SOURCE_ADDRESS_SUB="linux-headend-set-source-address: ${LINUX_HEADEND_SET_SOURCE_ADDRESS}"
+	LINUX_HEADEND_SET_SOURCE_ADDRESS_SUB="linux-headend-set-source-address: \"${LINUX_HEADEND_SET_SOURCE_ADDRESS}\""
 fi
 if [ -n "$IPV4_HEADEND_PREFIX" ]; then
-	IPV4_HEADEND_PREFIX_SUB="ipv4-headend-prefix: ${IPV4_HEADEND_PREFIX}"
+	IPV4_HEADEND_PREFIX_SUB="ipv4-headend-prefix: \"${IPV4_HEADEND_PREFIX}\""
 fi
 
 awk \
