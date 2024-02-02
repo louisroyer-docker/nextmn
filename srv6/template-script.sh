@@ -22,7 +22,7 @@ fi
 
 IFS=$'\n'
 HOOKS_SUB=""
-for HOOKS in ${HOOKS}; do
+for HOOK in ${HOOKS}; do
 	if [ -n "${HOOK}" ]; then
 		HOOKS_SUB="${HOOKS_SUB}\n  ${HOOK}"
 	fi
@@ -30,7 +30,7 @@ done
 
 if [ -n "${HEADENDS}" ]; then
 	HEADENDS_SUB="headends: "
-	for HEADENDS in ${HEADENDS}; do
+	for HEADEND in ${HEADENDS}; do
 		if [ -n "${HEADEND}" ]; then
 			HEADENDS_SUB="${HEADENDS_SUB}\n  ${HEADEND}"
 		fi
@@ -38,7 +38,7 @@ if [ -n "${HEADENDS}" ]; then
 fi
 
 ENDPOINTS_SUB=""
-for ENDPOINTS in ${ENDPOINTS}; do
+for ENDPOINT in ${ENDPOINTS}; do
 	if [ -n "${ENDPOINT}" ]; then
 		ENDPOINTS_SUB="${ENDPOINTS_SUB}\n  ${ENDPOINT}"
 	fi
