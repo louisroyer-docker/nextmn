@@ -1,13 +1,13 @@
 name: Docker Image CI - SRv6-ctrl
 
 on:
-  schedule:
-    - cron: '00 04 * * Sun'
   push:
     paths:
       - 'srv6-ctrl/**'
     branches: [ master ]
   workflow_dispatch:
+  repository_dispatch:
+    types: [docker-build]
 
 jobs:
    docker:
