@@ -1,1 +1,4 @@
-pfcp-address: %N6
+pfcp-address: "%N6"
+http-address: "%HTTP_ADDRESS"
+http-port: "%HTTP_PORT"
+debug: %DEBUG

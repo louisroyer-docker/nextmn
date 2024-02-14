@@ -28,6 +28,9 @@ Environment variables for templating:
 ```yaml
 environment:
   N6: "203.0.113.2"
+  HTTP_ADDRESS: "192.0.2.2"
+  HTTP_PORT: "8080"
+  DEBUG: "false"
 ```
 
 #### Routing
@@ -54,6 +57,10 @@ environment:
 Environment variables for templating:
 ```yaml
 environment:
+  CONTROLLER_URI: "http://192.0.2.2:8080"
+  HTTP_ADDRESS: "192.0.2.1"
+  HTTP_PORT: "8080"
+  BACKBONE_IP: "fd00::1"
   DEBUG: "false"
   HOOKS: |-
     pre-init-hook: pre-init-hook.sh
@@ -76,7 +83,7 @@ environment:
               - "fd00:51D5:0000:4::"
       source-address-prefix: "fd00:51D5:000:1:9999::/80"
     - name: "linux test"
-      to: "10.0.300.0/24"
+      to: "10.0.100.0/24"
       provider: "Linux"
       behavior: "H.Encaps"
       policy:

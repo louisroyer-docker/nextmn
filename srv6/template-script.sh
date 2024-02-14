@@ -19,6 +19,18 @@ if [ -z "$LOCATOR" ]; then
 	echo "Missing mandatory environment variable (LOCATOR)." > /dev/stderr
 	exit 1
 fi
+if [ -z "$HTTP_ADDRESS" ]; then
+	echo "Missing mandatory environment variable (HTTP_ADDRESS)." > /dev/stderr
+	exit 1
+fi
+if [ -z "$CONTROLLER_URI" ]; then
+	echo "Missing mandatory environment variable (CONTROLLER_URI)." > /dev/stderr
+	exit 1
+fi
+if [ -z "$BACKBONE_IP" ]; then
+	echo "Missing mandatory environment variable (BACKBONE_IP)." > /dev/stderr
+	exit 1
+fi
 
 IFS=$'\n'
 HOOKS_SUB=""
@@ -59,6 +71,10 @@ awk \
 	-v LOCATOR="${LOCATOR}" \
 	-v IPV4_HEADEND_PREFIX="${IPV4_HEADEND_PREFIX_SUB}" \
 	-v LINUX_HEADEND_SET_SOURCE_ADDRESS="${LINUX_HEADEND_SET_SOURCE_ADDRESS_SUB}" \
+	-v HTTP_ADDRESS="${HTTP_ADDRESS}" \
+	-v HTTP_PORT="${HTTP_PORT:-80}" \
+	-v CONTROLLER_URI="${CONTROLLER_URI}" \
+	-v BACKBONE_IP="${BACKBONE_IP}" \
 	'{
 		sub(/%DEBUG/, DEBUG);
 		sub(/%HOOKS/, HOOKS);
@@ -67,6 +83,10 @@ awk \
 		sub(/%LOCATOR/, LOCATOR);
 		sub(/%IPV4_HEADEND_PREFIX/,IPV4_HEADEND_PREFIX);
 		sub(/%LINUX_HEADEND_SET_SOURCE_ADDRESS/, LINUX_HEADEND_SET_SOURCE_ADDRESS);
+		sub(/%HTTP_ADDRESS/, HTTP_ADDRESS);
+		sub(/%HTTP_PORT/, HTTP_PORT);
+		sub(/%CONTROLLER_URI/, CONTROLLER_URI);
+		sub(/%BACKBONE_IP/, BACKBONE_IP);
 		print;
 	}' \
 	"${CONFIG_TEMPLATE}" > "${CONFIG_FILE}"

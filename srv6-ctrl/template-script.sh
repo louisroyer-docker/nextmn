@@ -11,10 +11,20 @@ if [ -z "$N6" ]; then
 	echo "Missing mandatory environment variable (N6)." > /dev/stderr
 	exit 1
 fi
+if [ -z "$HTTP_ADDRESS" ]; then
+	echo "Missing mandatory environment variable (HTTP_ADDRESS)." > /dev/stderr
+	exit 1
+fi
 
 awk \
+	-v DEBUG="${DEBUG:-false}" \
 	-v N6="${N6}" \
+	-v HTTP_ADDRESS="${HTTP_ADDRESS}" \
+	-v HTTP_PORT="${HTTP_PORT:-80}" \
 	'{
+		sub(/%DEBUG/, DEBUG);
+		sub(/%HTTP_ADDRESS/, HTTP_ADDRESS);
+		sub(/%HTTP_PORT/, HTTP_PORT);
 		sub(/%N6/, N6);
 		print;
 	}' \

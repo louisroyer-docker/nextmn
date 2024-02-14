@@ -1,6 +1,11 @@
 debug: %DEBUG
 hooks: %HOOKS
 
+http-address: "%HTTP_ADDRESS"
+http-port: "%HTTP_PORT"
+controller-uri: "%CONTROLLER_URI"
+backbone-ip: "%BACKBONE_IP"
+
 %LINUX_HEADEND_SET_SOURCE_ADDRESS
 %IPV4_HEADEND_PREFIX
 %HEADENDS
