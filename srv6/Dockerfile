@@ -6,7 +6,7 @@
 FROM golang:1.21 AS builder
 ARG COMMIT=c3092ff619bf4ae7c09a2aea931a847ff6367332
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6@${COMMIT} \
-      && ln -s /go/pkg/mod/github.com/nextmn/srv6@${COMMIT} /configuration
+      && find /go/pkg/mod/github.com/nextmn -iname 'srv6@*' -type d -exec ln -s {} /configuration \;
 
 
 FROM louisroyer/base-irit:latest
