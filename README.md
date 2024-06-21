@@ -99,7 +99,7 @@ environment:
       behavior: "End"
       provider: "Linux"
   LINUX_HEADEND_SET_SOURCE_ADDRESS: fd00:51D5:0000::
-  IPV4_HEADEND_PREFIX: 10.0.200.3/32
+  GTP4_HEADEND_PREFIX: 10.0.200.3/32
 ```
 
 #### Container deployment
