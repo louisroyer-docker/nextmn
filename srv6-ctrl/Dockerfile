@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.21 AS builder
-ARG COMMIT=6e04d319c600bb5f5d1186e123427b79916106b7
+ARG COMMIT=0efb7c07af6e75b35d77a02bd7cdd6a7f6659636
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl@${COMMIT}
 
 
