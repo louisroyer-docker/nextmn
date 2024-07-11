@@ -9,8 +9,53 @@
 > ```
 
 ## Configuration
+### NextMN-UPF
+- On Dockerhub: [`louisroyer/dev-nextmn-upf`](https://hub.docker.com/r/louisroyer/dev-nextmn-upf).
+
+> [!NOTE]
+> Please note that even if this software is not yet properly packaged using `.deb`, the generated binary file `/usr/local/bin/upf` is provided to you under MIT License.
+> A copy of the source code is available at in the repository [`nextmn/upf`](https://github.com/nextmn/upf).
+
+Environment variable used to select templating system:
+```yaml
+environment:
+  TEMPLATE_SCRIPT: "template-script.sh"
+  TEMPLATE_SCRIPT_ARGS: ""
+  CONFIG_FILE: "/etc/nextmn/upf.yaml"
+  CONFIG_TEMPLATE: "/usr/local/share/nextmn/template-upf.yaml"
+```
+
+Environment variables for templating:
+```yaml
+environment:
+  N4: "203.0.113.2"
+  DNN_LIST: |-
+    - dnn: "sliceA"
+      cidr: "10.0.111.0./24"
+  GTPU_ENTITIES_LIST: |-
+    - "10.0.201.5"
+    - "10.0.215.4"
+```
+
+#### Container deployment
+> [!IMPORTANT]
+> - The container requires the `NET_ADMIN` capability;
+> - The container requires the forwarding to be enabled (not enabled by the container itself);
+> - The tun interface (`/dev/net/tun`) must be available in the container.
+
+This can be done in `docker-compose.yaml` by defining the following for the service:
+
+```yaml
+cap_add:
+    - NET_ADMIN
+devices:
+    - "/dev/net/tun"
+sysctls:
+    - net.ipv4.ip_forward=1
+```
+
 ### NextMN-SRv6-ctrl
-- On Dockerhub: [`louisroyer/dev-free5gc-amf`](https://hub.docker.com/r/louisroyer/dev-nextmn-srv6-ctrl).
+- On Dockerhub: [`louisroyer/dev-nextmn-srv6-ctrl`](https://hub.docker.com/r/louisroyer/dev-nextmn-srv6-ctrl).
 
 > [!NOTE]
 > Please note that even if this software is not yet properly packaged using `.deb`, the generated binary file `/usr/local/bin/srv6-ctrl` is provided to you under MIT License.
@@ -36,7 +81,7 @@ environment:
 ```
 
 #### Routing
-> ![TIP]
+> [!TIP]
 > If you choose to configure the container using `docker-setup` (default), please refer to [`docker-setup`'s documentation](https://github.com/louisroyer/docker-setup). The environment variable ONESHOT is set to "true".
 > By default, it does nothing, but if you intend to use it, don't forget to add the capability `NET_ADMIN`.
 

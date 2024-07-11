@@ -1,0 +1,4 @@
+pfcp-address: %N4
+tun-interface: upf
+dnn_list: %DNN_LIST
+gtpu-entities: %IF_LIST
