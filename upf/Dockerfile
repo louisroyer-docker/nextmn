@@ -19,14 +19,16 @@ LABEL maintainer="Louis Royer <louis.royer@irit.fr>" \
 ARG BUILD_DATE=""
 
 RUN apt-get update -q && DEBIAN_FRONTEND=non-interactive apt-get install -qy --no-install-recommends --no-install-suggests \
-    iproute2 iptables \
+    docker-setup iproute2 iptables \
     && apt-get upgrade -qy \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /go/bin/upf /usr/local/bin/upf
 COPY ./*.sh /usr/local/bin/
 COPY ./template-upf.yaml /usr/local/share/nextmn/
-ENV TEMPLATE_SCRIPT="template-script.sh" \
+ENV ROUTING_SCRIPT="docker-setup" \
+    ONESHOT="true" \
+    TEMPLATE_SCRIPT="template-script.sh" \
     TEMPLATE_SCRIPT_ARGS="" \
     CONFIG_FILE="/etc/nextmn/upf.yaml" \
     CONFIG_TEMPLATE="/usr/local/share/nextmn/template-upf.yaml"

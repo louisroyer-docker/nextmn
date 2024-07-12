@@ -19,6 +19,7 @@
 Environment variable used to select templating system:
 ```yaml
 environment:
+  ROUTING_SCRIPT: "docker-setup"
   TEMPLATE_SCRIPT: "template-script.sh"
   TEMPLATE_SCRIPT_ARGS: ""
   CONFIG_FILE: "/etc/nextmn/upf.yaml"
@@ -36,6 +37,10 @@ environment:
     - "10.0.201.5"
     - "10.0.215.4"
 ```
+
+#### Routing
+> [!TIP]
+> If you choose to configure the container using `docker-setup` (default), please refer to [`docker-setup`'s documentation](https://github.com/louisroyer/docker-setup). The environment variable ONESHOT is set to "true".
 
 #### Container deployment
 > [!IMPORTANT]

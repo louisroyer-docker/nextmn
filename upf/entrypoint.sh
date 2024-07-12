@@ -24,6 +24,10 @@ else
 	config_opt=0
 fi
 
+if [ -n "${ROUTING_SCRIPT}" ]; then
+	"${ROUTING_SCRIPT}"
+fi
+
 if [[ $config_opt -eq 1 ]]; then
 	exec upf --config "$CONFIG_FILE" "$@"
 else
