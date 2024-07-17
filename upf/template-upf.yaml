@@ -1,4 +1,10 @@
-pfcp-address: %N4
-tun-interface: upf
-dnn_list: %DNN_LIST
-gtpu-entities: %GTPU_ENTITIES_LIST
+pfcp:
+  addr: %N4 # IP addr for listening
+  nodeID: %N4 # External IP or FQDN can be reached
+  retransTimeout: 1s # retransmission timeout
+  maxRetrans: 3 # the max number of retransmission
+gtpu:
+  forwarder: "wmnsk/go-gtp"
+  tunInterfaceName: upf
+  ifList: %IF_LIST
+dnnList: %DNN_LIST
