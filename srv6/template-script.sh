@@ -67,7 +67,7 @@ if [ -n "$GTP4_HEADEND_PREFIX" ]; then
 fi
 
 awk \
-	-v DEBUG="${DEBUG:-false}" \
+	-v LOG_LEVEL="${LOG_LEVEL:-info}" \
 	-v HOOKS="${HOOKS_SUB}" \
 	-v HEADENDS="${HEADENDS_SUB}" \
 	-v ENDPOINTS="${ENDPOINTS_SUB}" \
@@ -80,7 +80,7 @@ awk \
 	-v CONTROLLER_URI="${CONTROLLER_URI}" \
 	-v BACKBONE_IP="${BACKBONE_IP}" \
 	'{
-		sub(/%DEBUG/, DEBUG);
+		sub(/%LOG_LEVEL/, LOG_LEVEL);
 		sub(/%HOOKS/, HOOKS);
 		sub(/%HEADENDS/, HEADENDS);
 		sub(/%ENDPOINTS/, ENDPOINTS);

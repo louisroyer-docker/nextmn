@@ -115,7 +115,6 @@ environment:
   HTTP_ADDRESS: "192.0.2.1"
   HTTP_PORT: "8080"
   BACKBONE_IP: "fd00::1"
-  DEBUG: "false"
   HOOKS: |-
     pre-init-hook: pre-init-hook.sh
     post-init-hook: post-init-hook.sh
@@ -154,6 +153,7 @@ environment:
       provider: "Linux"
   LINUX_HEADEND_SET_SOURCE_ADDRESS: fd00:51D5:0000::
   GTP4_HEADEND_PREFIX: 10.0.200.3/32
+  LOG_LEVEL: "info"
 ```
 
 #### Container deployment

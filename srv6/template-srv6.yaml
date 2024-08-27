@@ -1,4 +1,3 @@
-debug: %DEBUG
 hooks: %HOOKS
 
 http-address: "%HTTP_ADDRESS"
@@ -13,3 +12,5 @@ backbone-ip: "%BACKBONE_IP"
 
 locator: %LOCATOR
 endpoints: %ENDPOINTS
+logger:
+  level: "%LOG_LEVEL"
