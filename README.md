@@ -82,7 +82,7 @@ environment:
   N4: "203.0.113.2"
   HTTP_ADDRESS: "192.0.2.2"
   HTTP_PORT: "8080"
-  DEBUG: "false"
+  LOG_LEVEL: "info"
 ```
 
 #### Routing

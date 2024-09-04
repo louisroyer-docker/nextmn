@@ -17,12 +17,12 @@ if [ -z "$HTTP_ADDRESS" ]; then
 fi
 
 awk \
-	-v DEBUG="${DEBUG:-false}" \
+	-v LOG_LEVEL="${LOG_LEVEL:-info}" \
 	-v N4="${N4}" \
 	-v HTTP_ADDRESS="${HTTP_ADDRESS}" \
 	-v HTTP_PORT="${HTTP_PORT:-80}" \
 	'{
-		sub(/%DEBUG/, DEBUG);
+		sub(/%LOG_LEVEL/, LOG_LEVEL);
 		sub(/%HTTP_ADDRESS/, HTTP_ADDRESS);
 		sub(/%HTTP_PORT/, HTTP_PORT);
 		sub(/%N4/, N4);

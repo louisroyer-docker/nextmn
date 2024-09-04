@@ -1,4 +1,5 @@
 pfcp-address: "%N4"
 http-address: "%HTTP_ADDRESS"
 http-port: "%HTTP_PORT"
-debug: %DEBUG
+logger:
+  level: "%LOG_LEVEL"
