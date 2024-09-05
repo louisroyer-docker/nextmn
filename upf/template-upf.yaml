@@ -8,3 +8,5 @@ gtpu:
   tunInterfaceName: upf
   ifList: %IF_LIST
 dnnList: %DNN_LIST
+logger:
+  level: "%LOG_LEVEL"

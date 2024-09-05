@@ -36,10 +36,12 @@ for INTERFACE in ${IF_LIST}; do
 done
 
 awk \
+	-v LOG_LEVEL="${LOG_LEVEL:-info}" \
 	-v N4="${N4}" \
 	-v DNN_LIST="${DNN_LIST_SUB}" \
 	-v IF_LIST="${IF_LIST_SUB}" \
 	'{
+		sub(/%LOG_LEVEL/, LOG_LEVEL);
 		sub(/%N4/, N4);
 		sub(/%DNN_LIST/, DNN_LIST);
 		sub(/%IF_LIST/, IF_LIST);

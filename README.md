@@ -36,6 +36,7 @@ environment:
   GTPU_ENTITIES_LIST: |-
     - "10.0.201.5"
     - "10.0.215.4"
+  LOG_LEVEL: "info"
 ```
 
 #### Routing
