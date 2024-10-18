@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.12
+ARG COMMIT=v0.0.13
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl@${COMMIT}
 
 
@@ -35,3 +35,6 @@ ENV ROUTING_SCRIPT="docker-setup" \
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["--help"]
+
+HEALTHCHECK --interval=1m --timeout=1s --retries=3 --start-period=5s --start-interval=1s \
+CMD ["entrypoint.sh", "healthcheck"]
