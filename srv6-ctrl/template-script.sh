@@ -15,17 +15,44 @@ if [ -z "$HTTP_ADDRESS" ]; then
 	echo "Missing mandatory environment variable (HTTP_ADDRESS)." > /dev/stderr
 	exit 1
 fi
+if [ -z "$UPLINK" ]; then
+	echo "Missing mandatory environment variable (UPLINK)." > /dev/stderr
+	exit 1
+fi
+if [ -z "$DOWNLINK" ]; then
+	echo "Missing mandatory environment variable (DOWNLINK)." > /dev/stderr
+	exit 1
+fi
+
+IFS=$'\n'
+DOWNLINK_SUB=""
+for D in ${DOWNLINK}; do
+	if [ -n "${D}" ]; then
+		DOWNLINK_SUB="${DOWNLINK_SUB}\n  ${D}"
+	fi
+done
+
+UPLINK_SUB=""
+for U in ${UPLINK}; do
+	if [ -n "${U}" ]; then
+		UPLINK_SUB="${UPLINK_SUB}\n  ${U}"
+	fi
+done
 
 awk \
 	-v LOG_LEVEL="${LOG_LEVEL:-info}" \
 	-v N4="${N4}" \
 	-v HTTP_ADDRESS="${HTTP_ADDRESS}" \
 	-v HTTP_PORT="${HTTP_PORT:-80}" \
+	-v UPLINK="${UPLINK_SUB}" \
+	-v DOWNLINK="${DOWNLINK_SUB}" \
 	'{
 		sub(/%LOG_LEVEL/, LOG_LEVEL);
 		sub(/%HTTP_ADDRESS/, HTTP_ADDRESS);
 		sub(/%HTTP_PORT/, HTTP_PORT);
 		sub(/%N4/, N4);
+		sub(/%UPLINK/, UPLINK);
+		sub(/%DOWNLINK/, DOWNLINK);
 		print;
 	}' \
 	"${CONFIG_TEMPLATE}" > "${CONFIG_FILE}"

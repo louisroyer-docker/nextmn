@@ -3,3 +3,7 @@ http-address: "%HTTP_ADDRESS"
 http-port: "%HTTP_PORT"
 logger:
   level: "%LOG_LEVEL"
+downlink:
+  %DOWNLINK
+uplink:
+  %UPLINK
