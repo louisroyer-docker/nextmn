@@ -1,6 +1,7 @@
 pfcp-address: "%N4"
-http-address: "%HTTP_ADDRESS"
-http-port: "%HTTP_PORT"
+control:
+  uri: "http://[%HTTP_ADDRESS]:%HTTP_PORT"
+  bind-addr: "[%HTTP_ADDRESS]:%HTTP_PORT"
 logger:
   level: "%LOG_LEVEL"
 downlink:

@@ -1,7 +1,8 @@
 hooks: %HOOKS
 
-http-address: "%HTTP_ADDRESS"
-http-port: "%HTTP_PORT"
+control:
+  uri: "http://[%HTTP_ADDRESS]:%HTTP_PORT"
+  bind-addr: "[%HTTP_ADDRESS]:%HTTP_PORT"
 controller-uri: "%CONTROLLER_URI"
 backbone-ip: "%BACKBONE_IP"
 
