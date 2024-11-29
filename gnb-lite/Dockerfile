@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.19
-RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl@${COMMIT}
+ARG COMMIT=v0.0.1
+RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/gnb-lite@${COMMIT}
 
 
 FROM louisroyer/base-irit:latest
@@ -23,15 +23,15 @@ RUN apt-get update -q && DEBIAN_FRONTEND=non-interactive apt-get install -qy --n
     && apt-get upgrade -qy \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /go/bin/srv6-ctrl /usr/local/bin/srv6-ctrl
+COPY --from=builder /go/bin/gnb-lite /usr/local/bin/gnb-lite
 COPY ./*.sh /usr/local/bin/
-COPY ./template-srv6-ctrl.yaml /usr/local/share/nextmn/
+COPY ./template-gnb-lite.yaml /usr/local/share/nextmn/
 ENV ROUTING_SCRIPT="docker-setup" \
     ONESHOT="true" \
     TEMPLATE_SCRIPT="template-script.sh" \
     TEMPLATE_SCRIPT_ARGS="" \
-    CONFIG_FILE="/etc/nextmn/srv6-ctrl.yaml" \
-    CONFIG_TEMPLATE="/usr/local/share/nextmn/template-srv6-ctrl.yaml"
+    CONFIG_FILE="/etc/nextmn/gnb-lite.yaml" \
+    CONFIG_TEMPLATE="/usr/local/share/nextmn/template-gnb-lite.yaml"
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["--help"]

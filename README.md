@@ -178,3 +178,146 @@ sysctls:
     - net.ipv6.conf.all.seg6_enabled=1
     - net.ipv6.conf.default.seg6_enabled=1
 ```
+
+### NextMN UE-Lite
+- On Dockerhub: [`louisroyer/dev-nextmn-ue-lite`](https://hub.docker.com/r/louisroyer/dev-nextmn-ue-lite).
+
+> [!NOTE]
+> Please note that even if this software is not yet properly packaged using `.deb`, the generated binary file `/usr/local/bin/ue-lite` is provided to you under MIT License.
+> A copy of the source code is available at in the repository [`nextmn/ue-lite`](https://github.com/nextmn/ue-lite).
+
+Environment variable used to select templating system:
+```yaml
+environment:
+  ROUTING_SCRIPT: "docker-setup"
+  TEMPLATE_SCRIPT: "template-script.sh"
+  TEMPLATE_SCRIPT_ARGS: ""
+  CONFIG_FILE: "/etc/nextmn/ue-lite.yaml"
+  CONFIG_TEMPLATE: "/usr/local/share/nextmn/template-ue-lite.yaml"
+```
+
+Environment variables for templating:
+```yaml
+environment:
+  HTTP_ADDRESS: "192.0.2.3"
+  HTTP_PORT: "8080"
+  RAN: |-
+    bind-addr: "10.1.0.2:1234"
+    gnbs:
+      - "http://192.0.2.4:8080"
+    pdu-sessions:
+      - gnb: "http://192.0.2.4:8080"
+        dnn: "nextmn-lite"
+  LOG_LEVEL: "info"
+```
+
+
+#### Routing
+> [!TIP]
+> If you choose to configure the container using `docker-setup` (default), please refer to [`docker-setup`'s documentation](https://github.com/louisroyer/docker-setup). The environment variable ONESHOT is set to "true".
+
+#### Container deployment
+> [!IMPORTANT]
+> - The container requires the `NET_ADMIN` capability;
+> - The tun interface (`/dev/net/tun`) must be available in the container.
+
+This can be done in `docker-compose.yaml` by defining the following for the service:
+
+```yaml
+cap_add:
+    - NET_ADMIN
+devices:
+    - "/dev/net/tun"
+```
+### NextMN gNB-Lite
+- On Dockerhub: [`louisroyer/dev-nextmn-gnb-lite`](https://hub.docker.com/r/louisroyer/dev-nextmn-gnb-lite).
+
+> [!NOTE]
+> Please note that even if this software is not yet properly packaged using `.deb`, the generated binary file `/usr/local/bin/gnb-lite` is provided to you under MIT License.
+> A copy of the source code is available at in the repository [`nextmn/gnb-lite`](https://github.com/nextmn/gnb-lite).
+
+Environment variable used to select templating system:
+```yaml
+environment:
+  ROUTING_SCRIPT: "docker-setup"
+  TEMPLATE_SCRIPT: "template-script.sh"
+  TEMPLATE_SCRIPT_ARGS: ""
+  CONFIG_FILE: "/etc/nextmn/gnb-lite.yaml"
+  CONFIG_TEMPLATE: "/usr/local/share/nextmn/template-gnb-lite.yaml"
+```
+
+Environment variables for templating:
+```yaml
+environment:
+  HTTP_ADDRESS: "192.0.2.4"
+  HTTP_PORT: "8080"
+  CP: "http://192.0.2.5:8080"
+  N3: "10.0.200.4"
+  RAN: |-
+    bind-addr: "10.1.0.1:1234"
+  LOG_LEVEL: "info"
+```
+
+#### Routing
+> [!TIP]
+> If you choose to configure the container using `docker-setup` (default), please refer to [`docker-setup`'s documentation](https://github.com/louisroyer/docker-setup). The environment variable ONESHOT is set to "true".
+
+#### Container deployment
+> [!IMPORTANT]
+> - The container requires the `NET_ADMIN` capability (if you want to configure the container using `docker-setup`).
+
+This can be done in `docker-compose.yaml` by defining the following for the service:
+
+```yaml
+cap_add:
+    - NET_ADMIN
+```
+
+### NextMN CP-Lite
+- On Dockerhub: [`louisroyer/dev-nextmn-cp-lite`](https://hub.docker.com/r/louisroyer/dev-nextmn-cp-lite).
+
+> [!NOTE]
+> Please note that even if this software is not yet properly packaged using `.deb`, the generated binary file `/usr/local/bin/cp-lite` is provided to you under MIT License.
+> A copy of the source code is available at in the repository [`nextmn/cp-lite`](https://github.com/nextmn/cp-lite).
+
+Environment variable used to select templating system:
+```yaml
+environment:
+  ROUTING_SCRIPT: "docker-setup"
+  TEMPLATE_SCRIPT: "template-script.sh"
+  TEMPLATE_SCRIPT_ARGS: ""
+  CONFIG_FILE: "/etc/nextmn/cp-lite.yaml"
+  CONFIG_TEMPLATE: "/usr/local/share/nextmn/template-cp-lite.yaml"
+```
+
+Environment variables for templating:
+```yaml
+environment:
+  N4: "203.0.113.3"
+  HTTP_ADDRESS: "192.0.2.5"
+  HTTP_PORT: "8080"
+  SLICES: |-
+    nextmn-lite:
+      pool: "10.0.111.0/24"
+      upfs:
+        - node-id: "203.0.113.2"
+          interfaces:
+            - type: "N3"
+              addr: "10.0.200.3"
+  LOG_LEVEL: "info"
+```
+
+#### Routing
+> [!TIP]
+> If you choose to configure the container using `docker-setup` (default), please refer to [`docker-setup`'s documentation](https://github.com/louisroyer/docker-setup). The environment variable ONESHOT is set to "true".
+
+#### Container deployment
+> [!IMPORTANT]
+> - The container requires the `NET_ADMIN` capability (if you want to configure the container using `docker-setup`).
+
+This can be done in `docker-compose.yaml` by defining the following for the service:
+
+```yaml
+cap_add:
+    - NET_ADMIN
+```

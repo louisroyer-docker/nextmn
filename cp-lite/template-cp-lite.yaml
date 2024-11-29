@@ -1,0 +1,10 @@
+control:
+  uri: "http://[%HTTP_ADDRESS]:%HTTP_PORT"
+  bind-addr: "[%HTTP_ADDRESS]:%HTTP_PORT"
+
+pfcp: "%N4"
+
+slices: %SLICES
+
+logger:
+  level: "%LOG_LEVEL"

@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.19
-RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6-ctrl@${COMMIT}
+ARG COMMIT=v0.0.1
+RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/ue-lite@${COMMIT}
 
 
 FROM louisroyer/base-irit:latest
@@ -19,19 +19,19 @@ LABEL maintainer="Louis Royer <louis.royer@irit.fr>" \
 ARG BUILD_DATE=""
 
 RUN apt-get update -q && DEBIAN_FRONTEND=non-interactive apt-get install -qy --no-install-recommends --no-install-suggests \
-    docker-setup \
+    docker-setup iproute2 iptables \
     && apt-get upgrade -qy \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /go/bin/srv6-ctrl /usr/local/bin/srv6-ctrl
+COPY --from=builder /go/bin/ue-lite /usr/local/bin/ue-lite
 COPY ./*.sh /usr/local/bin/
-COPY ./template-srv6-ctrl.yaml /usr/local/share/nextmn/
+COPY ./template-ue-lite.yaml /usr/local/share/nextmn/
 ENV ROUTING_SCRIPT="docker-setup" \
     ONESHOT="true" \
     TEMPLATE_SCRIPT="template-script.sh" \
     TEMPLATE_SCRIPT_ARGS="" \
-    CONFIG_FILE="/etc/nextmn/srv6-ctrl.yaml" \
-    CONFIG_TEMPLATE="/usr/local/share/nextmn/template-srv6-ctrl.yaml"
+    CONFIG_FILE="/etc/nextmn/ue-lite.yaml" \
+    CONFIG_TEMPLATE="/usr/local/share/nextmn/template-ue-lite.yaml"
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["--help"]

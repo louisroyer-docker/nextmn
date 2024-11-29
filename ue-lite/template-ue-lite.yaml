@@ -1,0 +1,7 @@
+control:
+  uri: "http://[%HTTP_ADDRESS]:%HTTP_PORT"
+  bind-addr: "[%HTTP_ADDRESS]:%HTTP_PORT"
+ran: %RAN
+
+logger:
+  level: "%LOG_LEVEL"

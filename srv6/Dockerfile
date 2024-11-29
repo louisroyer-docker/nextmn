@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.22
+ARG COMMIT=v0.0.23
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/srv6@${COMMIT} \
       && find /go/pkg/mod/github.com/nextmn -iname 'srv6@*' -type d -exec ln -s {} /configuration \;
 
@@ -37,5 +37,5 @@ ENV TEMPLATE_SCRIPT="template-script.sh" \
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["--help"]
 
-HEALTHCHECK --interval=1m --timeout=1s --retries=3 --start-period=5s --start-interval=1s \
+HEALTHCHECK --interval=1m --timeout=1s --retries=3 --start-period=5s --start-interval=100ms \
 CMD ["entrypoint.sh", "healthcheck"]
