@@ -4,7 +4,5 @@ control:
   bind-addr: "[%HTTP_ADDRESS]:%HTTP_PORT"
 logger:
   level: "%LOG_LEVEL"
-downlink:
-  %DOWNLINK
-uplink:
-  %UPLINK
+downlink: %DOWNLINK
+uplink: %UPLINK
