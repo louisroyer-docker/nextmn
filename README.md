@@ -304,6 +304,12 @@ environment:
           interfaces:
             - type: "N3"
               addr: "10.0.200.3"
+  AREAS: |-
+    gnbs:
+      - "http://192.0.2.4:8080"
+    paths:
+      nextmn-lite:
+        - "203.0.113.2"
   LOG_LEVEL: "info"
 ```
 

@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 
 FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.4
+ARG COMMIT=v0.0.5
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/cp-lite@${COMMIT}
 
 

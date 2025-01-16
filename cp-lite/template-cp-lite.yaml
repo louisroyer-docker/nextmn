@@ -5,6 +5,7 @@ control:
 pfcp: "%N4"
 
 slices: %SLICES
+areas: %AREAS
 
 logger:
   level: "%LOG_LEVEL"

@@ -15,6 +15,10 @@ if [ -z "$SLICES" ]; then
 	echo "Missing mandatory environment variable (SLICES)." > /dev/stderr
 	exit 1
 fi
+if [ -z "$AREAS" ]; then
+	echo "Missing mandatory environment variable (AREAS)." > /dev/stderr
+	exit 1
+fi
 if [ -z "$HTTP_ADDRESS" ]; then
 	echo "Missing mandatory environment variable (HTTP_ADDRESS)." > /dev/stderr
 	exit 1
@@ -29,11 +33,19 @@ for S in ${SLICES}; do
 	fi
 done
 
+AREAS_SUB=""
+for S in ${AREAS}; do
+	if [ -n "${S}" ]; then
+		AREAS_SUB="${AREAS_SUB}\n  ${S}"
+	fi
+done
+
 awk \
 	-v LOG_LEVEL="${LOG_LEVEL:-info}" \
 	-v HTTP_PORT="${HTTP_PORT:-80}" \
 	-v HTTP_ADDRESS="${HTTP_ADDRESS}" \
 	-v SLICES="${SLICES_SUB}" \
+	-v AREAS="${AREAS_SUB}" \
 	-v N4="${N4}" \
 	-v SLICES="${SLICES_SUB}" \
 	'{
@@ -42,6 +54,7 @@ awk \
 		sub(/%HTTP_ADDRESS/, HTTP_ADDRESS);
 		sub(/%N4/, N4);
 		sub(/%SLICES/, SLICES);
+		sub(/%AREAS/, AREAS);
 		print;
 	}' \
 	"${CONFIG_TEMPLATE}" > "${CONFIG_FILE}"
