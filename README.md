@@ -309,7 +309,8 @@ environment:
       - "http://192.0.2.4:8080"
     paths:
       nextmn-lite:
-        - "203.0.113.2"
+        - node-id: "203.0.113.2"
+          interface-addr: "10.0.200.3"
   LOG_LEVEL: "info"
 ```
 
