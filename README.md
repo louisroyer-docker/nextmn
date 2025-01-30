@@ -84,6 +84,20 @@ environment:
   HTTP_ADDRESS: "192.0.2.2"
   HTTP_PORT: "8080"
   LOG_LEVEL: "info"
+  UPLINK: |-
+    - control-uri: "http://192.0.2.1:8080"
+      enabled: true
+      area:
+        - 10.0.0.1/32
+      service: 10.0.201.1
+      segments-list:
+        - "fc00:2:1::"
+  DOWNLINK: |-
+    - control-uril: "http://192.0.2.3:8080"
+      enabled: true
+      srgw-gtp4: "10.3.0.1"
+      segments-list:
+        - "fc00:1:1::/48"
 ```
 
 #### Routing
