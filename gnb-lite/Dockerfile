@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 # SPDX-License-Identifier: MIT
 
-FROM golang:1.22 AS builder
+FROM golang:1.23 AS builder
 ARG COMMIT=v0.0.3
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/gnb-lite@${COMMIT}
 

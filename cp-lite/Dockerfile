@@ -3,8 +3,8 @@
 # found in the LICENSE file.
 # SPDX-License-Identifier: MIT
 
-FROM golang:1.22 AS builder
-ARG COMMIT=v0.0.7
+FROM golang:1.23 AS builder
+ARG COMMIT=380b60757f1957bee10bbc1f4f909caef440ac23
 RUN : ${COMMIT:? Missing build-arg COMMIT.} && go install github.com/nextmn/cp-lite@${COMMIT}
 
 
